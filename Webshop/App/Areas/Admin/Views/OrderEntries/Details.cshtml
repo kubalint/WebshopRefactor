@@ -1,0 +1,80 @@
+﻿@using System.Linq
+@using Persistence.Model;
+@using App.Models;
+@using Persistence
+@model App.Models.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+   
+
+    @foreach (var item in Model.Items)
+     {
+
+         if (item.Key.Status == OrderStatus.Deleted)
+         {
+             continue;
+         }
+
+         bool modifyable = item.Key.Status == OrderStatus.Active;
+
+         
+         <tr>
+             <td>
+                 @item.Key.Name
+             </td>
+
+             <td>
+                 @Html.DisplayFor(modelItem => item.Key.Quantity)
+                 @if (modifyable)
+                 {
+                     @Html.ActionLink("-", "DecreaseQuantity", new { id = item.Key.ProductID, orderId = ViewBag.OrderId })
+                     @Html.ActionLink("+", "IncreaseQuantity", new { id = item.Key.ProductID, orderId = ViewBag.OrderId })
+
+                 }
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.Key.Price)
+             </td>
+             <td>
+                 @Html.DisplayFor(modelItem => item.Key.Status)
+             </td>
+             @{
+                 if (item.Key.Status!=OrderStatus.Delivered)
+                 {
+                     <td>
+                         @Html.ActionLink("Delete", "DeleteEntry", new { id = item.Key.ProductID, orderId = ViewBag.OrderId })
+                     </td>
+                 }
+             }
+            
+         </tr>
+     }
+    
+    
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

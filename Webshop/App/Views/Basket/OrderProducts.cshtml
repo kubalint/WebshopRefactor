@@ -1,0 +1,59 @@
+﻿@using Persistence.Model
+@using App.Models
+
+@model  App.Models.ViewModels.OrderProductsViewModel 
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Shipping information</h2>
+
+<div id="formOuterBox">
+    <div class="formInnerBox">
+        <section id="form">
+            @Html.Partial("ShippingInfoForm", Model.ShippingInfo)
+
+        </section>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Unit Price
+        </th>
+        <th>
+            Quantity
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Basket.ProductsInBasket)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" align="right">@Model.Basket.Sum $</td>
+    </tr>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

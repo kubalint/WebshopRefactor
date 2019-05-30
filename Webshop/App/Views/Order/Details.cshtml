@@ -1,0 +1,51 @@
+﻿
+@using App.Models;
+@model App.Models.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "ViewDetails";
+
+}
+
+<h2>View Details</h2>
+
+<h5>Order No.: @Model.OrderId</h5>
+<h5>Name: @Model.FirstName @Model.LastName</h5>
+<h5>Address: @Model.Address</h5>
+<h5>Date: @Model.Date.ToShortDateString()</h5>
+<h5>Status: @Model.Status</h5>
+
+
+    <table class="table">
+
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+
+        @foreach (var entry in Model.Items.Keys)
+        {
+        <tr>
+            <td>
+                @entry.Name
+            </td>
+
+            <td>
+                @entry.Quantity
+            </td>
+
+            <td>
+                @entry.Price
+            </td>
+
+
+        </tr>
+        }
+        <tr><td colspan="3" align="right">@Model.Sum  $</td></tr>
+
+    </table>
+
+
+
+
+

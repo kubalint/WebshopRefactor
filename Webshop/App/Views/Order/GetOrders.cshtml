@@ -1,0 +1,34 @@
+﻿
+
+@model App.Models.ViewModels.OrdersViewModel
+@{
+    ViewBag.Title = "My orders";
+}
+
+<h2>My orders</h2>
+<table class="table">
+    <tr>
+        <td>OrderId</td>
+        <td>Address</td>
+        <td>Date</td>
+        <td>Status</td>
+        <td></td>
+    </tr>
+
+    @{
+        foreach (var item in Model.OrdersList)
+        {
+
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.Address</td>
+                <td>@item.Date</td>
+                <td>@item.Status</td>
+                <td>@Html.ActionLink("View Details", "Details", new {id = item.OrderId})</td>
+            </tr>
+        }
+    }
+</table>
+
+
+

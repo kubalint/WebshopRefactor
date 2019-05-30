@@ -1,0 +1,73 @@
+﻿
+@model App.Models.ViewModels.ProductsViewModel
+
+@{
+    ViewBag.Title = "Products administration";
+}
+
+<h2>Products administration</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            CategoryName
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Available
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ProductList) {
+        <tr>
+            <td>
+                @{
+                    if (item.PhotoId != null)
+                    {
+                        <img src="@Url.Action("GetImage", "Products", new {id=item.PhotoId})" width="90">
+                        @Html.ActionLink("Remove Image", "DeletePhoto", "Products", new { id = item.ID }, null)
+                    }
+                    else
+                    {
+                        <img src="~/Images/DefaultImage/defaultImage.jpg" width="90">
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
